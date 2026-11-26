@@ -1,9 +1,1 @@
-{
-  "name": "Bela Vista • Gestão de Eventos",
-  "short_name": "Bela Vista",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#f5f3ed",
-  "theme_color": "#10251f",
-  "icons": []
-}
+{"name":"Bela Vista - Gestão do Espaço","short_name":"Bela Vista","start_url":"./","display":"standalone","background_color":"#081713","theme_color":"#102b25","icons":[]}

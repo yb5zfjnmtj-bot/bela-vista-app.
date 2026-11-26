@@ -1,21 +1,30 @@
-# Bela Vista — primeira versão funcional (PWA)
+# Bela Vista — pacote ampliado
 
 ## O que funciona nesta versão
-- Acesso local com senha provisória `1234` (alterável em Configurações).
-- Cadastro, edição e consulta de reservas.
-- Calendário mensal com indicação de datas ocupadas.
-- Lista de clientes pesquisável.
-- Painel de valores contratados, recebidos e em aberto.
-- Geração de minuta de contrato e impressão/Salvar como PDF pelo navegador.
-- Catálogo local para imagens e vídeos pequenos.
+- Painel, agenda mensal, cadastro/edição/exclusão de reservas e clientes.
+- Valores de reservas, despesas e resumo financeiro.
+- Prévia de contrato e impressão/salvar PDF pelo navegador.
+- Dados do espaço, taxa de atraso configurável e PIN local demonstrativo.
+- Atalhos para abrir conversas individuais no WhatsApp.
+- Catálogo local de fotos/vídeos (arquivos até 2 MB nesta versão).
+- Revisão de contatos com consentimento marcado antes de preparar campanha manual.
+- Avisos, histórico local, exportação e restauração de backup JSON.
 
-## Limitações importantes
-Esta é uma primeira versão local: os dados ficam no armazenamento do navegador do aparelho. Não há ainda sincronização entre celulares, autenticação segura em nuvem, cópia de segurança, integração oficial do WhatsApp, geração de mídia por IA, campanhas, nem leitura automática de avaliações. Não use dados pessoais reais de clientes até conectar e testar um backend seguro.
-O contrato é uma minuta operacional, não aconselhamento jurídico. Complete as condições comerciais e peça revisão jurídica.
+## Limitações que ainda exigem configuração externa
+Esta versão NÃO tem autenticação real, banco sincronizado, WhatsApp API, leitura/transcrição de conversas, IA generativa, geração programada de mídia, captura automática de avaliações ou notificações automáticas. O PIN e os dados ficam no navegador do aparelho. Não armazene dados sensíveis nem use como sistema multiusuário até conectar Supabase Auth/DB/Storage e validar segurança.
 
-## Publicar usando somente iPhone
-Para instalar como PWA, o site precisa estar hospedado em HTTPS. O caminho mais simples é criar um repositório no GitHub pelo Safari, enviar estes arquivos e importar o repositório na Vercel. Depois abra a URL publicada no Safari > Compartilhar > Adicionar à Tela de Início.
-A publicação e a configuração de backend exigem contas do usuário. Nunca compartilhe senhas ou códigos no chat.
+## Publicar no GitHub Pages
+Substitua no repositório os arquivos `index.html`, `app.js`, `styles.css`, `manifest.webmanifest` e adicione `sw.js`. O Pages deve usar branch `main` e pasta `/ (root)`. Após o commit, aguarde o workflow Pages ficar verde.
 
-## Próxima etapa para uso em vários aparelhos
-Conectar Supabase com tabelas de usuários, reservas, clientes, pagamentos, arquivos e log de auditoria; ativar regras de acesso por proprietário; depois configurar backup e autenticação. Só então ativar o login multiaparelho.
+## Próxima etapa: Supabase
+1. Crie um projeto Supabase.
+2. No SQL Editor, execute `supabase/schema.sql`.
+3. Ative Auth por e-mail e configure políticas e recuperação de conta.
+4. Criar bucket privado para `media`, com políticas por usuário.
+5. Integrar o frontend com Supabase usando URL e anon key (nunca inserir service_role no navegador).
+
+## WhatsApp e IA
+WhatsApp Cloud API, webhooks, modelos aprovados e provedores de IA devem rodar em funções/server-side com segredos guardados no ambiente do servidor. Nunca coloque tokens no `app.js`. Exija consentimento demonstrável e opção de descadastro; revise destinatários antes de cada campanha.
+
+## Segurança e contrato
+O contrato é apenas uma minuta técnica inicial e deve ser revisado por advogado. Conferir endereço, dados das partes, regras locais, valores, caução, cancelamento, tolerância e incidência de multa antes de usar.

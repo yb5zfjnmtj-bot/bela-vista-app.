@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10251f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+<title>Bela Vista • Gestão</title>
+</head>
+<body>
+<div id="login" class="login-screen">
+  <div class="login-card"><div class="brand-mark">BV</div><div class="eyebrow">ESPAÇO DE EVENTOS</div><h1>Bela Vista</h1><p>Gestão do seu espaço, em um só lugar.</p>
+  <label>Senha de acesso<input id="pin" type="password" inputmode="numeric" placeholder="Digite sua senha"></label>
+  <button class="primary full" id="loginBtn">Entrar</button><small>Primeiro acesso: senha provisória 1234. Altere em Configurações.</small></div>
+</div>
+<div id="app" class="app hidden">
+<header class="topbar"><button class="brand" data-page="inicio"><span class="brand-mark small">BV</span><span><b>Bela Vista</b><small>ESPAÇO DE EVENTOS</small></span></button><button class="icon-btn" id="logout" aria-label="Sair">↗</button></header>
+<main id="main">
+<section class="page active" id="page-inicio">
+<div class="welcome"><div><div class="eyebrow">PAINEL DO ESPAÇO</div><h1>Olá, seja bem-vindo.</h1><p>Acompanhe o movimento do Bela Vista.</p></div><span class="date-pill" id="today"></span></div>
+<div class="stats"><article><span>Reservas futuras</span><strong id="statBookings">0</strong><small>eventos confirmados</small></article><article><span>Recebido</span><strong id="statReceived">R$ 0</strong><small>pagamentos registrados</small></article><article><span>A receber</span><strong id="statPending">R$ 0</strong><small>saldo dos contratos</small></article></div>
+<div class="section-head"><div><div class="eyebrow">PRÓXIMOS EVENTOS</div><h2>Agenda próxima</h2></div><button class="text-btn" data-page="agenda">Ver agenda →</button></div><div id="upcoming" class="booking-list"></div>
+<div class="quick-actions"><button data-page="nova">＋ Nova reserva</button><button data-page="contrato">▤ Gerar contrato</button><button data-page="financeiro">◈ Financeiro</button></div>
+</section>
+<section class="page" id="page-agenda">
+<div class="page-heading"><div class="eyebrow">PLANEJAMENTO</div><h1>Agenda</h1><p>Toque em uma reserva para ver os detalhes.</p></div>
+<div class="calendar-card"><div class="calendar-head"><button id="prevMonth">‹</button><h2 id="monthLabel"></h2><button id="nextMonth">›</button></div><div class="weekdays"><span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span></div><div id="calendar" class="calendar-grid"></div><div class="legend"><span><i class="dot free"></i> Livre</span><span><i class="dot busy"></i> Reservado</span><span><i class="dot today-dot"></i> Hoje</span></div></div>
+<div class="section-head"><h2 id="selectedDateTitle">Reservas</h2><button class="primary compact" data-page="nova">＋ Adicionar</button></div><div id="dayBookings" class="booking-list"></div>
+</section>
+<section class="page" id="page-nova">
+<div class="page-heading"><div class="eyebrow">GESTÃO DE CLIENTES</div><h1 id="formTitle">Nova reserva</h1><p>Cadastre o evento e mantenha tudo organizado.</p></div>
+<form id="bookingForm" class="form-card">
+<input type="hidden" id="bookingId">
+<div class="form-grid"><label>Nome do cliente<input id="client" required placeholder="Nome completo"></label><label>WhatsApp<input id="phone" inputmode="tel" placeholder="(61) 99999-9999"></label><label>Data do evento<input id="eventDate" type="date" required></label><label>Tipo de evento<input id="eventType" placeholder="Aniversário, casamento..."></label><label>Horário de entrada<input id="startTime" type="time"></label><label>Horário de saída<input id="endTime" type="time"></label><label>Valor do aluguel (R$)<input id="price" type="number" min="0" step=".01" required></label><label>Valor recebido (R$)<input id="paid" type="number" min="0" step=".01" value="0"></label><label class="wide">Serviços extras e valores<textarea id="extras" rows="2" placeholder="Buffet, pula-pula, decoração..."></textarea></label><label class="wide">Observações<textarea id="notes" rows="3" placeholder="Detalhes importantes do aluguel"></textarea></label></div>
+<div class="form-actions"><button type="button" class="secondary" data-page="agenda">Cancelar</button><button class="primary" type="submit">Salvar reserva</button></div>
+</form>
+</section>
+<section class="page" id="page-clientes"><div class="page-heading"><div class="eyebrow">RELACIONAMENTO</div><h1>Clientes</h1><p>Histórico de quem já alugou o espaço.</p></div><input id="searchClients" class="search" placeholder="Buscar por nome ou telefone"><div id="clientsList" class="booking-list"></div></section>
+<section class="page" id="page-contrato"><div class="page-heading"><div class="eyebrow">DOCUMENTOS</div><h1>Contrato de locação</h1><p>Selecione uma reserva para preparar o documento.</p></div><label class="select-label">Reserva<select id="contractBooking"></select></label><div class="form-card"><p class="muted">O documento será montado com os dados do proprietário e do cliente. Confira e revise juridicamente antes de utilizar.</p><button class="primary full" id="makeContract">Gerar contrato para imprimir / salvar em PDF</button></div><div id="contractPreview"></div></section>
+<section class="page" id="page-financeiro"><div class="page-heading"><div class="eyebrow">CONTROLE FINANCEIRO</div><h1>Financeiro</h1><p>Visão dos valores dos aluguéis cadastrados.</p></div><div class="stats finance-stats"><article><span>Contratado</span><strong id="finTotal">R$ 0</strong></article><article><span>Recebido</span><strong id="finPaid">R$ 0</strong></article><article><span>Em aberto</span><strong id="finOpen">R$ 0</strong></article></div><div class="section-head"><h2>Movimentações</h2></div><div id="financeList" class="booking-list"></div><p class="notice">O lucro real depende do cadastro de custos (insumos, limpeza, manutenção e outros). Esta primeira versão mostra faturamento e valores a receber, não lucro líquido.</p></section>
+<section class="page" id="page-divulgar"><div class="page-heading"><div class="eyebrow">CONTEÚDO DO ESPAÇO</div><h1>Catálogo</h1><p>Guarde fotos e vídeos para compartilhar com seus clientes.</p></div><div class="upload-card"><label class="upload-button">＋ Adicionar fotos ou vídeos<input id="mediaUpload" type="file" accept="image/*,video/*" multiple hidden></label><div id="mediaGrid" class="media-grid"></div></div><p class="notice">Esta versão organiza seus arquivos neste aparelho. A criação automática diária de artes e vídeos por IA e o envio de campanhas serão conectados na próxima etapa.</p></section>
+<section class="page" id="page-config"><div class="page-heading"><div class="eyebrow">PERSONALIZAÇÃO</div><h1>Configurações</h1><p>Dados usados nos contratos e no acesso.</p></div><form id="settingsForm" class="form-card"><label>Nome do espaço<input id="venueName" value="Bela Vista Espaço de Eventos"></label><label>Nome / razão social do proprietário<input id="ownerName" placeholder="Nome completo ou empresa"></label><label>CPF / CNPJ<input id="ownerDoc" placeholder="Documento"></label><label>Endereço completo<input id="venueAddress" placeholder="Endereço do espaço"></label><label>WhatsApp do espaço<input id="venuePhone" placeholder="5561..."></label><label>Taxa por atraso (R$)<input id="lateFee" type="number" min="0" step=".01" value="100"></label><label>Senha nova<input id="newPin" type="password" inputmode="numeric" placeholder="Deixe em branco para manter"></label><button class="primary full">Salvar configurações</button></form><p class="notice">Os dados desta versão ficam armazenados no navegador deste iPhone. Para acesso seguro em vários aparelhos, precisamos conectar o banco de dados na nuvem antes de usar com dados reais.</p></section>
+</main>
+<nav class="bottom-nav"><button class="selected" data-page="inicio"><b>⌂</b><small>Início</small></button><button data-page="agenda"><b>▦</b><small>Agenda</small></button><button data-page="clientes"><b>♙</b><small>Clientes</small></button><button data-page="financeiro"><b>◈</b><small>Valores</small></button><button data-page="divulgar"><b>✧</b><small>Divulgar</small></button></nav>
+</div>
+<div id="toast" class="toast"></div><script src="app.js"></script>
+</body></html>
